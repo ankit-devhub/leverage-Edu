@@ -7,6 +7,20 @@
 
 function sortString(str) {
 
+    function sequence(arr,notorepeat)
+    {
+        let mergedArray = []
+        for(let i=0;i<arr.length;i++)
+        {
+            for(let j=0;j<notorepeat;j++)
+            {
+                mergedArray.push(arr[i]);
+            }
+        }
+
+        return mergedArray;
+    }
+
     const charFreqency = {};
 
     for (let i = 0; i < str.length; i++) {
@@ -24,20 +38,25 @@ function sortString(str) {
     for (let i = 0; i < frequencyarray.length; i++) {
         frequencyarray[i] = []
     }
-
-
     for (let i = 0; i < characterArray.length; i++) {
         frequencyarray[charFreqency[characterArray[i]]].push(characterArray[i]);
     }
 
-
+    let output = [];
     for (let i = frequencyarray.length - 1; i > 0; i--) {
         if (frequencyarray[i].length > 0) {
             frequencyarray[i].sort();
+            output.push( sequence(frequencyarray[i],i));
         }
-     
+        else
+        {
+            for(let j = 0;j<i;j++)
+            {
+                output.push(frequencyarray[i]);
+            }
+        }
     }
-    console.log(frequencyarray);
+    return output.flat(2).join('');
 }
-sortString("zzzzeeetttaaqqo");
+console.log(sortString("zzzzeeetttaaqqo"));
 
